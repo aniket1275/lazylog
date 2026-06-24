@@ -1,0 +1,25 @@
+name: Branch Name Check
+
+on:
+  pull_request:
+
+jobs:
+
+  validate:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Check branch
+
+        run: |
+
+          BRANCH=${{ github.head_ref }}
+
+          if [[ ! "$BRANCH" =~ ^(feature|bugfix|hotfix|docs|refactor)/.+$ ]]
+          then
+            echo "Invalid branch name"
+            exit 1
+          fi
+          
